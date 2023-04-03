@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+	<title>Harfler Ekranı Kaplayacak Şekilde</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			font-size: 1rem;
+			font-family: sans-serif;
+			transition: font-size 0.5s ease-out;
+		}
+		.lowercase {
+			align-self: flex-end;
+		}
+		.buttons {
+			position: fixed;
+			top: 10px;
+			left: 10px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			z-index: 100;
+		}
+		.button {
+			background-color: transparent;
+			color: #ddd;
+			padding: 5px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			border: 2px solid #ddd;
+			font-weight: bold;
+		}
+		.button:hover {
+			background-color: #ddd;
+			color: black;
+		}
+		.night-mode {
+			position: fixed;
+			bottom: 10px;
+			right: 10px;
+			color: #ddd;
+			cursor: pointer;
+			z-index: 100;
+		}
+		.night-mode:hover {
+			color: #bbb;
+		}
+		.night-mode.on {
+			background-color: #000;
+			color: #fff;
+			padding: 5px;
+			border-radius: 5px;
+			border: 2px solid #ddd;
+		}
+		.night-mode-on {
+			background-color: #252525;
+			color: #ddd;
+		}
+		.night-mode-on .button {
+			color: #ddd;
+			border-color: #ddd;
+		}
+	</style>
+</head>
+<body onkeypress="zoom(event)">
+	<div class="buttons">
+		<button class="button sans-serif">Sans Serif</button>
+		<button class="button serif">Serif</button>
+		<button class="button monospace">Monospace</button>
+	</div>
+	<div class="night-mode">Gece Modu</div>
+	<script>
+		var lastLetter = '';
+		var font = localStorage.getItem("font-family") || "sans-serif";
+		var body = document.querySelector("body");
+		body.style.fontFamily = font;
+
+		function zoom(event) {
+			var key = event.key;
+			if (key === ' ') {
+				return;
+			}
+			if (key.toUpperCase() === lastLetter) {
+				document.body.style.fontSize = "50rem";
+				document.body.classList.add("lowercase");
+				document.body.innerText = lastLetter.toLowerCase();
+				lastLetter = '';
+			} else {
+				document.body.style.fontSize = "50rem";
+				document.body.classList.remove("lowercase");
+				document.body.innerText = key.toUpperCase();
+				lastLetter = key.toUpperCase();
+				var speechSynthesis = window.speechSynthesis;
+				var utterance = new SpeechSynthesisUtterance(key.toUpperCase());
+				utterance.lang = 'tr-TR';
+				speechSynthesis.speak(utterance);				
+			}
+		}
+
+		function setFontFamily(fontFamily) {
+			body.style.fontFamily = fontFamily;
+			localStorage.setItem("font-family", fontFamily);
+		}
+
+		var sansButton = document.querySelector(".sans-serif");
+		var serifButton = document.querySelector(".serif");
+		var monoButton = document.querySelector(".monospace");
+		sansButton.addEventListener("click", function() {
+			setFontFamily("sans-serif");
+		});
+		serifButton.addEventListener("click", function() {
+			setFontFamily("serif");
+		});
+		monoButton.addEventListener("click", function() {
+			setFontFamily("monospace");
+		});
+
+		var nightModeButton = document.querySelector(".night-mode");
+		var nightModeOn = localStorage.getItem("night-mode-on") === "true";
+		if (nightModeOn) {
+			body.classList.add("night-mode-on");
+			nightModeButton.classList.add("on");
+		}
+		nightModeButton.addEventListener("click", function() {
+			body.classList.toggle("night-mode-on");
+			nightModeButton.classList.toggle("on");
+			localStorage.setItem("night-mode-on", body.classList.contains("night-mode-on"));
+		});
+	</script>
+</body>
+</html>
