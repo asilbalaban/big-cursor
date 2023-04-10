@@ -95,11 +95,7 @@
 				document.body.style.fontSize = "50rem";
 				document.body.classList.remove("lowercase");
 				document.body.innerText = key.toUpperCase();
-				lastLetter = key.toUpperCase();
-				var speechSynthesis = window.speechSynthesis;
-				var utterance = new SpeechSynthesisUtterance(key.toUpperCase());
-				utterance.lang = 'tr-TR';
-				speechSynthesis.speak(utterance);				
+				lastLetter = key.toUpperCase();			
 			}
 		}
 
