@@ -83,19 +83,20 @@
 
 		function zoom(event) {
 			var key = event.key;
-			if (key === ' ') {
-				return;
-			}
-			if (key.toUpperCase() === lastLetter) {
-				document.body.style.fontSize = "50rem";
-				document.body.classList.add("lowercase");
-				document.body.innerText = lastLetter.toLowerCase();
-				lastLetter = '';
-			} else {
-				document.body.style.fontSize = "50rem";
-				document.body.classList.remove("lowercase");
-				document.body.innerText = key.toUpperCase();
-				lastLetter = key.toUpperCase();			
+			var keyCode = event.keyCode || event.which;
+			
+			if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 48 && keyCode <= 57) || (keyCode >= 97 && keyCode <= 122)) {
+				if (key.toUpperCase() === lastLetter) {
+					document.body.style.fontSize = "50rem";
+					document.body.classList.add("lowercase");
+					document.body.innerText = lastLetter.toLowerCase();
+					lastLetter = '';
+				} else {
+					document.body.style.fontSize = "50rem";
+					document.body.classList.remove("lowercase");
+					document.body.innerText = key.toUpperCase();
+					lastLetter = key.toUpperCase();			
+				}
 			}
 		}
 
