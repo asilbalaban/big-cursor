@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="tr">
-<head>
-	<title>Harfler Ekranı Kaplayacak Şekilde</title>
+<!-- saved from url=(0054)https://asilbalaban.github.io/big-cursor/alphabet.html -->
+<html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Alfabe</title>
 	<style>
 		body {
 			margin: 0;
@@ -71,12 +71,12 @@
 				font-size: 1rem;
 			}
 			to {
-				font-size: 50rem;
+				font-size: 45rem;
 			}
 		}
 	</style>
 </head>
-<body onkeypress="zoom(event)">
+<body onkeypress="zoom(event)" style="font-family: sans-serif;">
 	<div class="buttons">
 		<button class="button sans-serif">Sans Serif</button>
 		<button class="button serif">Serif</button>
@@ -100,17 +100,22 @@
 			if (isTurkishLetterOrNumber(keyCode)) {
 				document.body.style.animation = "none";
 				setTimeout(() => {
-					document.body.style.animation = "grow 0.5s ease-out";
+					document.body.style.animation = "grow 0.3s ease-out";
+					document.body.style.fontSize = "45rem";
 				}, 0);
 
 				if (key.toUpperCase() === lastLetter) {
 					document.body.classList.add("lowercase");
 					document.body.innerText = lastLetter.toLowerCase();
 					lastLetter = '';
+					document.body.style.position = "relative";
+					document.body.style.top = "-60px";
 				} else {
 					document.body.classList.remove("lowercase");
 					document.body.innerText = key.toUpperCase();
-					lastLetter = key.toUpperCase();			
+					lastLetter = key.toUpperCase();
+					document.body.style.position = "relative";
+					document.body.style.top = "0px";
 				}
 			}
 		}
@@ -145,5 +150,6 @@
 			localStorage.setItem("night-mode-on", body.classList.contains("night-mode-on"));
 		});
 	</script>
-</body>
-</html>
+
+
+</body></html>
