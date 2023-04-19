@@ -81,11 +81,15 @@
 		var body = document.querySelector("body");
 		body.style.fontFamily = font;
 
+		function isTurkishLetterOrNumber(keyCode) {
+			return ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 48 && keyCode <= 57) || (keyCode >= 97 && keyCode <= 122) || (keyCode == 286 || keyCode == 287 || keyCode == 304 || keyCode == 305 || keyCode == 350 || keyCode == 351 || keyCode == 214 || keyCode == 246 || keyCode == 220 || keyCode == 252 || keyCode == 199 || keyCode == 231 || keyCode == 208 || keyCode == 240));
+		}
+
 		function zoom(event) {
 			var key = event.key;
 			var keyCode = event.keyCode || event.which;
 			
-			if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 48 && keyCode <= 57) || (keyCode >= 97 && keyCode <= 122)) {
+			if (isTurkishLetterOrNumber(keyCode)) {
 				if (key.toUpperCase() === lastLetter) {
 					document.body.style.fontSize = "50rem";
 					document.body.classList.add("lowercase");
