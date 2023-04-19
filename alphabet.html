@@ -66,6 +66,14 @@
 			color: #ddd;
 			border-color: #ddd;
 		}
+		@keyframes grow {
+			from {
+				font-size: 1rem;
+			}
+			to {
+				font-size: 50rem;
+			}
+		}
 	</style>
 </head>
 <body onkeypress="zoom(event)">
@@ -90,13 +98,16 @@
 			var keyCode = event.keyCode || event.which;
 			
 			if (isTurkishLetterOrNumber(keyCode)) {
+				document.body.style.animation = "none";
+				setTimeout(() => {
+					document.body.style.animation = "grow 0.5s ease-out";
+				}, 0);
+
 				if (key.toUpperCase() === lastLetter) {
-					document.body.style.fontSize = "50rem";
 					document.body.classList.add("lowercase");
 					document.body.innerText = lastLetter.toLowerCase();
 					lastLetter = '';
 				} else {
-					document.body.style.fontSize = "50rem";
 					document.body.classList.remove("lowercase");
 					document.body.innerText = key.toUpperCase();
 					lastLetter = key.toUpperCase();			
